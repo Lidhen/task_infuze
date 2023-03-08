@@ -1,0 +1,49 @@
+use Bitrix\Main\SystemException;
+// Пользователь есть
+if (\Bitrix\Main\Loader::includeModule('custom.usernamevowes'))
+{
+	$name = (new \Custom\UserNameVowes\PrepareUserName())->getUserNameVowels(1);
+	print_r($name);
+}
+echo "\n";
+// Пользователя нет
+if (\Bitrix\Main\Loader::includeModule('custom.usernamevowes'))
+{
+	try
+    {
+        $name = (new \Custom\UserNameVowes\PrepareUserName())->getUserNameVowels(10000);
+
+    }
+    catch (SystemException $exception)
+    {
+        echo $exception->getMessage();
+    }
+}
+echo "\n";
+// Пользователя есть Имя не заполнено
+if (\Bitrix\Main\Loader::includeModule('custom.usernamevowes'))
+{
+	try
+    {
+        $name = (new \Custom\UserNameVowes\PrepareUserName())->getUserNameVowels(23);
+
+    }
+    catch (SystemException $exception)
+    {
+        echo $exception->getMessage();
+    }
+}
+echo "\n";
+//Подключение контроллера Для проверка ajax
+if (\Bitrix\Main\Loader::includeModule('custom.usernamevowes'))
+{
+	$res = (new \Custom\UserNameVowes\Controller\User())->GetUserNameVowelsAction();
+	print_r($res);
+}
+echo "\n";
+// Проверка велючение rest
+if (\Bitrix\Main\Loader::includeModule('custom.usernamevowes'))
+{
+	$res = \Custom\UserNameVowes\Events\RestService::getDescription();
+	print_r($res);
+}
