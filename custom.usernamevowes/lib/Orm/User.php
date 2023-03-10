@@ -7,7 +7,7 @@ class User
     {
         $user = self::GetUserById($id);
         if($user){
-            return "${user['LAST_NAME']}${user['NAME']}${user['SECOND_NAME']}";
+            return "${user['NAME']}${user['LAST_NAME']}${user['SECOND_NAME']}";
         }
         return false;
     }

@@ -15,13 +15,13 @@ class RestService
 	}
     public static function GetUserNameVowes($query, $n, \CRestServer $server)
 	{
-		// Можно сделать проверку на метод отправки данных, например только post
-		
-		$UserId = $query['user_id'];
 		try
         {
+			$UserId = null;
+			if($query['user_id']){
+				$UserId = intval($query['user_id']);
+			}			
             $name = (new \Custom\UserNameVowes\PrepareUserName())->getUserNameVowels($UserId);
-
             return ['status' => 'success' , 'result' => $name];
         }
         catch (SystemException $exception)

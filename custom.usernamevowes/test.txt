@@ -6,6 +6,47 @@ if (\Bitrix\Main\Loader::includeModule('custom.usernamevowes'))
 	print_r($name);
 }
 echo "\n";
+// Неверный формат данных
+if (\Bitrix\Main\Loader::includeModule('custom.usernamevowes'))
+{
+	try
+    {
+        $name = (new \Custom\UserNameVowes\PrepareUserName())->getUserNameVowels(23.00);
+
+    }
+    catch (SystemException $exception)
+    {
+        echo $exception->getMessage();
+    }
+}
+echo "\n";
+if (\Bitrix\Main\Loader::includeModule('custom.usernamevowes'))
+{
+	try
+    {
+        $name = (new \Custom\UserNameVowes\PrepareUserName())->getUserNameVowels('11111');
+
+    }
+    catch (SystemException $exception)
+    {
+        echo $exception->getMessage();
+    }
+}
+echo "\n";
+if (\Bitrix\Main\Loader::includeModule('custom.usernamevowes'))
+{
+	try
+    {
+        $name = (new \Custom\UserNameVowes\PrepareUserName())->getUserNameVowels(null);
+
+    }
+    catch (SystemException $exception)
+    {
+        echo $exception->getMessage();
+    }
+}
+
+echo "\n";
 // Пользователя нет
 if (\Bitrix\Main\Loader::includeModule('custom.usernamevowes'))
 {
@@ -37,7 +78,7 @@ echo "\n";
 //Подключение контроллера Для проверка ajax
 if (\Bitrix\Main\Loader::includeModule('custom.usernamevowes'))
 {
-	$res = (new \Custom\UserNameVowes\Controller\User())->GetUserNameVowelsAction();
+	$res = (new \Custom\UserNameVowes\Controller\User())->GetUserNameVowelsAction(1);
 	print_r($res);
 }
 echo "\n";

@@ -10,14 +10,21 @@ class PrepareUserName
     protected $UserName = '';
 
     public function getUserNameVowels($id)
-    {
-        $this->UserId = (int)$id;  // Тут нужно бы сделать проверку какой тип данных передается, но сделаю простое преобразование в число
+    {   
+        $this->CheckRequest($id);        
         $this->UserName = Orm\User::getUserNameById($this->UserId);
 
         $this->CheckUserName(); 
         $this->GetVowels();
 
         return $this->UserName;
+    }
+    protected function CheckRequest($id){
+
+        if(!is_int($id)){
+            throw new SystemException("invalid data format!");
+        }
+        $this->UserId = (int)$id; 
     }
     protected function CheckUserName(){
         if($this->UserName === false){ 
@@ -30,7 +37,6 @@ class PrepareUserName
     protected function GetVowels(){
         preg_match_all($this->regularSearch, $this->UserName, $matches);
 
-        $this->UserName = mb_strtolower(implode('', array_shift($matches)));
-        
+        $this->UserName = mb_strtolower(implode('', array_shift($matches)));    
     }
 }
